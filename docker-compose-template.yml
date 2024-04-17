@@ -1,0 +1,38 @@
+version: '3'
+services:
+  cockroachai:
+    container_name: cockroachai
+    image: ghcr.io/cockroachai/cockroachai-v2:latest
+    restart: always
+    ports:
+      - "9315:9315"
+    volumes:
+      - ./config:/config
+      - ./config.yaml:/config.yaml
+      - ./resource:/app/resource
+    networks:
+      cockroachai:
+        ipv4_address: 172.20.0.2
+  ja3-proxy:
+    container_name: ja3Proxy
+    image: xyhelper/ja3-proxy:latest
+    restart: always
+    ports:
+      - "3128:3128"
+      - "9988:9988"
+    environment:
+      WEBSITE_URL: "https://chat.openai.com/auth/login"
+      PROXY: "http://username:password@172.20.0.3:3128"  
+      CLIENTKEY: "" # 输入yescaptcha的clientKey
+      LOCALPROXYUSER: "username" 
+      LOCALPROXYPASS: "password"
+    networks:
+      cockroachai:
+        ipv4_address: 172.20.0.3
+networks:
+  cockroachai:
+    name: cockroachai
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
