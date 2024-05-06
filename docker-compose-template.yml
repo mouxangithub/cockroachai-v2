@@ -2,7 +2,7 @@ version: '3'
 services:
   cockroachai:
     container_name: cockroachai
-    image: ghcr.io/cockroachai/cockroachai-v2:latest
+    image: ghcr.io/mouxangithub/cockroachai-v2:master
     restart: always
     ports:
       - "9315:9315"

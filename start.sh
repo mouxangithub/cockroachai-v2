@@ -181,7 +181,13 @@ function deployJA3() {
         docker compose down
     fi
 
-cat <<EOF >config.yaml
+    # 检查config目录是否存在，如果不存在则创建
+    config_dir="config"
+    if [ ! -d "$config_dir" ]; then
+        mkdir "$config_dir"
+    fi
+
+cat <<EOF >"$config_dir/config.yaml"
 PORT: 9315
 JA3_PROXY: "http://$username:$password@$server_ip:${ja3_port}"
 ADMIN_PASSWORD: "$admin_password"
@@ -201,14 +207,12 @@ version: '3'
 services:
   cockroachai:
     container_name: cockroachai
-    image: ghcr.io/cockroachai/cockroachai-v2:latest
+    image: ghcr.io/mouxangithub/cockroachai-v2:master
     restart: always
     ports:
       - "${chttp_port}:9315"
     volumes:
-      - ./config:/config
-      - ./config.yaml:/config.yaml
-      - ./resource:/app/resource
+      - ./config:/app/config
     networks:
       cockroachai:
         ipv4_address: 172.20.0.2
