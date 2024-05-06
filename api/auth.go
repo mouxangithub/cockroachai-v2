@@ -16,22 +16,22 @@ func AuthProviders(r *ghttp.Request) {
 		  "id": "auth0",
 		  "name": "Auth0",
 		  "type": "oauth",
-		  "signinUrl": "https://chat.openai.com/api/auth/signin/auth0",
-		  "callbackUrl": "https://chat.openai.com/api/auth/callback/auth0"
+		  "signinUrl": "https://chatgpt.com/api/auth/signin/auth0",
+		  "callbackUrl": "https://chatgpt.com/api/auth/callback/auth0"
 		},
 		"login-web": {
 		  "id": "login-web",
 		  "name": "Auth0",
 		  "type": "oauth",
-		  "signinUrl": "https://chat.openai.com/api/auth/signin/login-web",
-		  "callbackUrl": "https://chat.openai.com/api/auth/callback/login-web"
+		  "signinUrl": "https://chatgpt.com/api/auth/signin/login-web",
+		  "callbackUrl": "https://chatgpt.com/api/auth/callback/login-web"
 		},
 		"openai": {
 		  "id": "openai",
 		  "name": "openai",
 		  "type": "oauth",
-		  "signinUrl": "https://chat.openai.com/api/auth/signin/openai",
-		  "callbackUrl": "https://chat.openai.com/api/auth/callback/openai"
+		  "signinUrl": "https://chatgpt.com/api/auth/signin/openai",
+		  "callbackUrl": "https://chatgpt.com/api/auth/callback/openai"
 		}
 	  }`
 	r.Response.WriteJson(gjson.New(jsonStr))
