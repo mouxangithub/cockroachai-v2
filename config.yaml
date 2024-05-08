@@ -1,5 +1,5 @@
 PORT: 9315
-JA3_PROXY: "http://mouxan:a455171924@170.106.141.243:9988"
+JA3_PROXY: ""
 # ASSET_PREFIX: "" # 用于配置静态资源
 ADMIN_PASSWORD: "xyhelper"
 USERTOKENS:
