@@ -25,6 +25,7 @@ var (
 	Ja3Proxy     *url.URL                              // ja3代理
 	ArkoseUrl    = "/v2/"
 	OPENAIURL, _ = url.Parse("https://chatgpt.com")
+	OPENAIURL, _ = url.Parse("https://chatgpt.com")
 
 	envScriptTpl = `
 	<script src="/list.js"></script>
@@ -198,7 +199,7 @@ func GetBuildId(ctx g.Ctx) string {
 
 // 刷新账号信息
 func RefreshSession(ctx g.Ctx, refreshCookie string) (session *gjson.Json, err error) {
-	res, err := ProxyClient.SetCookie("__Secure-next-auth.session-token", refreshCookie).Get(ctx, "https://chatgpt.com/api/auth/session")
+	res, err := ProxyClient.SetCookie("__Secure-next-auth.session-token", refreshCookie).SetCookie("oai-dm-tgt-c-240329","2024-04-02").Get(ctx, "https://chatgpt.com/api/auth/session")
 	if err != nil {
 		g.Log().Error(ctx, "RefreshUserToken Error: ", err)
 		return
@@ -209,12 +210,10 @@ func RefreshSession(ctx g.Ctx, refreshCookie string) (session *gjson.Json, err e
 		g.Log().Error(ctx, err)
 		return
 	}
-	refreshCookie = res.GetCookie("__Secure-next-auth.session-token")
+	rrefreshCookie := res.GetCookie("__Secure-next-auth.session-token")
 	// g.Log().Info(ctx, "RefreshUserToken", refreshCookie)
-	if refreshCookie == "" {
-		err = gerror.New("无效的refreshCookie")
-		g.Log().Error(ctx, err)
-		return
+	if rrefreshCookie != "" {
+		refreshCookie = rrefreshCookie
 	}
 	session = gjson.New(res.ReadAll())
 	session.Set("refreshCookie", refreshCookie)
