@@ -25,7 +25,6 @@ var (
 	Ja3Proxy     *url.URL                              // ja3代理
 	ArkoseUrl    = "/v2/"
 	OPENAIURL, _ = url.Parse("https://chatgpt.com")
-	OPENAIURL, _ = url.Parse("https://chatgpt.com")
 
 	envScriptTpl = `
 	<script src="/list.js"></script>
